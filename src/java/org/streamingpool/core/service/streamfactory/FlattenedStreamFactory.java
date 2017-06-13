@@ -52,6 +52,7 @@ public class FlattenedStreamFactory implements StreamFactory {
         StreamId<Iterable<T>> source = filteredId.sourceStreamId();
 
         return Optional.of(Flowable.fromPublisher(discoveryService.discover(source))
+                .filter(Objects::nonNull))
                 .flatMap(Flowable::fromIterable)
                 .filter(Objects::nonNull));
     }
